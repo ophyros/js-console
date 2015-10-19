@@ -4,16 +4,28 @@ import '../styles/console-output.styl';
 class ConsoleOutput extends Component {
   constructor() {
     super();
-    this.state = { result: "" };
+    this.state = { text: [] };
   }
 
-  printResult(result) {
-    this.setState({ result: result }); // кладем результат в стейт, компонент перерисовывается.
-    // надо не заменять содержимое стейта, а добавлять
+  printResult(command, result) {
+    let tmp = this.state.text;
+    tmp.push({command: command, result: result});
+    this.setState(tmp);
   }
 
   render() {
-    return <div className="console-output">{this.state.result}</div>;
+    let text = this.state.text.map(function(line) {
+          return (
+            <p>
+              {line.command}<br />
+              {line.result}
+            </p>
+        )});
+    return (
+      <div className="console-output">
+        {text}
+      </div>
+    )
   }
 }
 
