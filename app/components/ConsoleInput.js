@@ -39,8 +39,6 @@ class ConsoleInput extends Component {
       this.historyIndex--;
     }
     this.refs.command.value = '';
-    console.log(this.history);
-    console.log(this.historyIndex);
   }
 
   render() {
