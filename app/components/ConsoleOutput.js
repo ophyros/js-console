@@ -14,9 +14,9 @@ class ConsoleOutput extends Component {
   }
 
   render() {
-    let text = this.state.text.map(function(line) {
+    let text = this.state.text.map((line, index) => {
           return (
-            <p>
+            <p key={index}>
               {line.command}<br />
               {line.result}
             </p>
