@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import '../styles/console-tab.styl';
 
-import classNames from 'classnames';
-
 class ConsoleTab extends Component {
+  handleKeyDown(e) {
+    this.props.onKeyboard(this.props.tab.id, e);
+  }
+  
   handleClick() {
-    this.props.click(this.props.id);
+    this.props.onClick(this.props.tab.id);
   }
   
   render() {
-    let tabClass = classNames({
-      'console-tab-header': true,
-      'console-tab-header-active': this.props.active
-    });
+    let className = 'console-tab-header '
+    if (this.props.tab.active) {
+      className += 'console-tab-header-active';
+    }
     return (
-      <h1 className={tabClass} onClick={this.handleClick.bind(this)}>Tab {this.props.id}</h1>
+      <h1 className={className} onClick={this.handleClick.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}>Tab {this.props.tab.id}</h1>
     )
   }
 }

@@ -2,19 +2,8 @@ import React, { Component } from 'react';
 import '../styles/console-output.styl';
 
 class ConsoleOutput extends Component {
-  constructor() {
-    super();
-    this.state = { text: [] };
-  }
-
-  printResult(command, result) {
-    let tmp = this.state.text;
-    tmp.push({command: command, result: result});
-    this.setState(tmp);
-  }
-
   render() {
-    let text = this.state.text.map((line, index) => {
+    let text = this.props.tab.output.map((line, index) => {
           return (
             <p key={index}>
               {line.command}<br />
