@@ -1,4 +1,4 @@
-//DateFormat = require('../libs/dateFormat.js');
+var DateFormat = require('../libs/dateFormat');
 
 class TimeMachine {
   constructor() {
@@ -28,13 +28,13 @@ class TimeMachine {
     }
     if (formatIndex >= 0) {
       outputFormat = params[formatIndex + 1];
-      //time = DateFormat.format(now, outputFormat);
-      let dd = now.getDate();
+      return DateFormat.format.date(now, outputFormat);
+      /*let dd = now.getDate();
       if (dd < 10) dd = '0' + dd;
       let mm = now.getMonth() + 1;
       if (mm < 10) mm = '0' + mm;
       let yy = now.getFullYear();
-      return yy + '-' + mm + '-' + dd;
+      return yy + '-' + mm + '-' + dd;*/
     } else {
       return now.toLocaleString('ru', options);
     }

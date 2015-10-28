@@ -467,3 +467,5 @@ var DateFormat = {};
     };
   }());
 }(DateFormat));
+
+module.exports = DateFormat;
