@@ -3,6 +3,8 @@ import '../styles/console-block.styl';
 
 import ConsoleTab from './ConsoleTab';
 import ConsoleContent from './ConsoleContent';
+import ConsoleOutput from './ConsoleOutput';
+import ConsoleInput from './ConsoleInput';
 import TimeMachine from './TimeMachine';
 
 
@@ -18,18 +20,17 @@ class ConsoleBlock extends Component {
                               output: [],
                               active: true
                             }
-                          ],
-                  lastId: 2
+                          ]
                  };
     this.timeMachine = new TimeMachine;
   }
   
   newTab() {
     let tabs = this.state.tabs;
-    let newId = this.state.lastId;
+    let newId = tabs[tabs.length - 1].id + 1;
     tabs.push({id: newId, history: [], historyIndex: 0, inputValue: '', output: [], active: false});
     this.setActiveTab(newId);
-    this.setState({tabs: tabs, lastId: newId + 1});
+    this.setState({tabs: tabs});
   }
   
   closeTab(id) {
@@ -38,9 +39,9 @@ class ConsoleBlock extends Component {
     let index = tabs.findIndex((tab) => { return tab.id === id });
     if (tabs[index].active) {
       if (index === 0) {
-        this.setActiveTab(tabs[index+1].id);
+        tabs[index + 1].active = true;
       } else {
-        this.setActiveTab(tabs[index-1].id);
+        tabs[index - 1].active = true;
       }
     }
     tabs.splice(index, 1);
@@ -115,6 +116,14 @@ class ConsoleBlock extends Component {
     this.setActiveTab(id);
   }
   
+  handleCloseClick(id) {
+    this.closeTab(id);
+  }
+  
+  handleAddClick() {
+    this.newTab();
+  }
+  
   handleCommand(id, command) {
     let result = '';
     let cmd = command.split(/\s/);
@@ -148,20 +157,21 @@ class ConsoleBlock extends Component {
     
     this.setState({tabs: tabs});
   }
-  
-  
-  
+    
   render() {
     let tabs = this.state.tabs.map((tab, index) => {
-      return <ConsoleTab tab={tab} key={index} onClick={this.handleTabHeaderClick.bind(this)} onKeyboard={this.handleKeyboard.bind(this)} />
+      return <ConsoleTab tab={tab} key={index} onHeaderClick={this.handleTabHeaderClick.bind(this)} onKeyboard={this.handleKeyboard.bind(this)} onCloseClick={this.handleCloseClick.bind(this)}/>
     });
     let id = this.getActiveTabId();
     let activeTab = this.state.tabs.filter((tab) => {return tab.id === id });
-    let content = <ConsoleContent tab={activeTab[0]} onCommand={this.handleCommand.bind(this)} onKeyboard={this.handleKeyboard.bind(this)} onInputChange={this.handleChange.bind(this)} />
     return (
       <div className="console-block">
         {tabs}
-        {content}
+        <div className='console-tab-add-button' onClick={this.handleAddClick.bind(this)}>+</div>
+        <ConsoleContent tab={activeTab[0]} onCommand={this.handleCommand.bind(this)} onKeyboard={this.handleKeyboard.bind(this)} onInputChange={this.handleChange.bind(this)}>
+          <ConsoleOutput tab={activeTab[0]} />
+          <ConsoleInput tab={activeTab[0]} onCommandSubmit={this.handleCommand.bind(this)} onKeyboard={this.handleKeyboard.bind(this)} onInputChange={this.handleChange.bind(this)} />
+        </ConsoleContent>
       </div>
     );
   }

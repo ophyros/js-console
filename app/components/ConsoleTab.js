@@ -7,7 +7,11 @@ class ConsoleTab extends Component {
   }
   
   handleClick() {
-    this.props.onClick(this.props.tab.id);
+    this.props.onHeaderClick(this.props.tab.id);
+  }
+  
+  handleCloseClick() {
+    this.props.onCloseClick(this.props.tab.id);
   }
   
   render() {
@@ -16,7 +20,10 @@ class ConsoleTab extends Component {
       className += 'console-tab-header-active';
     }
     return (
-      <h1 className={className} onClick={this.handleClick.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}>Tab {this.props.tab.id}</h1>
+      <div className={className} onKeyDown={this.handleKeyDown.bind(this)}>
+        <span className='console-tab-header-text' onClick={this.handleClick.bind(this)}>Console {this.props.tab.id}</span>
+        <div className='console-tab-close-button' onClick={this.handleCloseClick.bind(this)}>✖</div>
+      </div>
     )
   }
 }

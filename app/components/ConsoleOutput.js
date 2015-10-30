@@ -7,6 +7,7 @@ class ConsoleOutput extends Component {
     let node = ReactDOM.findDOMNode(this);
     node.scrollTop = node.scrollHeight;
   }
+  
   render() {
     let text = this.props.tab.output.map((line, index) => {
           return (

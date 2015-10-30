@@ -20,7 +20,7 @@ class ConsoleInput extends Component {
   render() {
     return (
       <form className="console-form" onSubmit={this.handleSubmit.bind(this)} onKeyDown={this.handleKeyDown.bind(this)}>
-        <input className="console-input" type="text" placeholder="Enter command" ref="command" value={this.props.tab.inputValue} onChange={this.hanldeChange.bind(this)} />
+        <input className="console-input" type="text" placeholder="Enter command" ref="command" value={this.props.tab.inputValue} onChange={this.hanldeChange.bind(this)} autoFocus />
         <input className="console-submit" type="submit" />
       </form>
     )

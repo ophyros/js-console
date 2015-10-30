@@ -27,14 +27,7 @@ class TimeMachine {
       now.setTime(nowWithTimeZone);
     }
     if (formatIndex >= 0) {
-      outputFormat = params[formatIndex + 1];
-      return DateFormat.format.date(now, outputFormat);
-      /*let dd = now.getDate();
-      if (dd < 10) dd = '0' + dd;
-      let mm = now.getMonth() + 1;
-      if (mm < 10) mm = '0' + mm;
-      let yy = now.getFullYear();
-      return yy + '-' + mm + '-' + dd;*/
+      return DateFormat.format.date(now, params[formatIndex + 1]);
     } else {
       return now.toLocaleString('ru', options);
     }
